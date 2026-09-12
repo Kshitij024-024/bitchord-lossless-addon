@@ -1,0 +1,9 @@
+{
+  "name": "bitchord-lossless-addon",
+  "version": "1.0.0",
+  "description": "Online lossless source addon for BitChord",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
