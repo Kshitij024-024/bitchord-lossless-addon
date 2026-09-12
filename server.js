@@ -28,20 +28,21 @@ const server = http.createServer((req, res) => {
   }
 
   // Search endpoint
-  else if (url.pathname === "/search") {
-  const query = url.searchParams.get("q") || "";
-
+  else if (url.pathname === "/manifest.json") {
   res.end(JSON.stringify({
-    query: query,
-    tracks: [
+    id: "bitchord-lossless",
+    name: "BitChord Lossless Addon",
+    version: "1.0.0",
+    resources: ["search", "stream"],
+    settings: [
       {
-        id: "test-song-001",
-        title: "Test Lossless Song",
-        artist: "BitChord Addon",
-        album: "Test Album",
-        duration: 180,
-        format: "flac",
-        audioQuality: "Lossless"
+        key: "quality",
+        default: "lossless",
+        options: [
+          { value: "hires" },
+          { value: "lossless" },
+          { value: "high" }
+        ]
       }
     ]
   }));
