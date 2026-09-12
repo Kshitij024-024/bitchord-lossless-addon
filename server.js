@@ -23,34 +23,45 @@ const server = http.createServer((req, res) => {
       name: "BitChord Lossless Addon",
       version: "1.0.0",
       description: "Lossless music resolver for BitChord",
-      resources: ["search", "stream"]
+      resources: ["search", "stream"],
+      settings: [
+        {
+          key: "quality",
+          default: "lossless",
+          options: [
+            { value: "hires" },
+            { value: "lossless" },
+            { value: "high" }
+          ]
+        }
+      ]
     }));
   }
 
   // Search endpoint
-  else if (url.pathname === "/manifest.json") {
-  res.end(JSON.stringify({
-    id: "bitchord-lossless",
-    name: "BitChord Lossless Addon",
-    version: "1.0.0",
-    resources: ["search", "stream"],
-    settings: [
-      {
-        key: "quality",
-        default: "lossless",
-        options: [
-          { value: "hires" },
-          { value: "lossless" },
-          { value: "high" }
-        ]
-      }
-    ]
-  }));
-}
+  else if (url.pathname === "/search") {
+    const query = url.searchParams.get("q") || "";
+
+    res.end(JSON.stringify({
+      query: query,
+      tracks: [
+        {
+          id: "test-song-001",
+          title: "Test Lossless Song",
+          artist: "BitChord Addon",
+          album: "Test Album",
+          duration: 180,
+          format: "flac",
+          audioQuality: "Lossless"
+        }
+      ]
+    }));
+  }
 
   // Not found
   else {
     res.statusCode = 404;
+
     res.end(JSON.stringify({
       error: "Not found"
     }));
