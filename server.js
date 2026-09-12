@@ -29,13 +29,23 @@ const server = http.createServer((req, res) => {
 
   // Search endpoint
   else if (url.pathname === "/search") {
-    const query = url.searchParams.get("q") || "";
+  const query = url.searchParams.get("q") || "";
 
-    res.end(JSON.stringify({
-      query: query,
-      tracks: []
-    }));
-  }
+  res.end(JSON.stringify({
+    query: query,
+    tracks: [
+      {
+        id: "test-song-001",
+        title: "Test Lossless Song",
+        artist: "BitChord Addon",
+        album: "Test Album",
+        duration: 180,
+        format: "flac",
+        audioQuality: "Lossless"
+      }
+    ]
+  }));
+}
 
   // Not found
   else {
